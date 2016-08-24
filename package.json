@@ -1,0 +1,16 @@
+{
+  "name"         : "HolaMundo",
+  "version"      : "0.0.1",
+  "description"  : "App MEAN",
+  "main"         : "server/app.js",
+  "author"       : "Cristu Naranjo",
+  "dependencies" : {
+    "express"    : "4.14.0",
+    "mongoose"   : "4.5.9",
+    "serve-static": "1.11.1",
+    "morgan"     : "1.7.0",
+    "fs"         : "",
+    "body-parser": "1.15.2",
+    "method-override": "2.3.6"
+  }
+}
