@@ -2,15 +2,47 @@ var mainApp = angular.module('mainApp', ['ui.router']);
 
 mainApp.config(function($stateProvider, $urlRouterProvider){
 
- $urlRouterProvider.otherwise("/main");
+ $urlRouterProvider.otherwise("/login");
 
  $stateProvider
 	 .state('main', {
 		 url: "/main",
 		 templateUrl: "/app/components/main/main.view.html"
 	 })
+   .state('login',{
+     url: "/login",
+     templateUrl: "/app/components/login/login.view.html"
+   })
+   .state('register',{
+     url: "/register",
+     templateUrl: "/app/components/register/register.view.html"
+   })
+});
+mainApp.constant('AUTH_EVENTS', {
+  notAuthenticated: 'auth-not-authenticated'
+});
+mainApp.constant('API_ENDPOINT', {
+  url: 'http://localhost:3001/api'
+})
+mainApp.run(function ($rootScope, $state, AuthService, AUTH_EVENTS) {
+  $rootScope.$on('$stateChangeStart', function (event,next, nextParams, fromState) {
+    if (!AuthService.isAuthenticated()) {
+      console.log(next.name);
+      if (next.name !== 'login' && next.name !== 'register') {
+        event.preventDefault();
+        $state.go('login');
+      }
+    }
+  });
 });
 
+  mainApp.controller('AppCtrl', function($scope, $state, $window, AuthService, AUTH_EVENTS) {
+    $scope.$on(AUTH_EVENTS.notAuthenticated, function(event) {
+      AuthService.logout();
+      $state.go('login');
+      $window.alert("Session Lost! /n/n/n Sorry, You have to login again.");
+    });
+  });
 // mainApp.controller('mainController', function mainController($scope, $http) {
 // 	$scope.newUser = {};
 // 	$scope.users = {};

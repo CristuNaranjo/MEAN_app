@@ -1,5 +1,12 @@
-
-  <div ng-controller="mainController" class="container">
+<div ng-controller="mainController" class="container">
+  <div class="row">
+    <textarea>{{memberinfo}}</textarea>
+    <div class="col-sm-4 col-sm-offset-1 text-center">
+        <button type="submit" class="btn btn-success btn-lg" ng-click="destroySession()">Destroy Token</button>
+        <button type="submit" class="btn btn-warning btn-lg" ng-click="getInfo()">Get Member Info</button>
+    </div>
+    <button type="submit" class="btn btn-warning btn-lg" ng-click="logout()">Logout</button>
+  <!-- <div ng-controller="mainController" class="container">
     <div class="row">
       <div class="col-sm-6 col-sm-offset-1">
         <table class="table table-striped">
@@ -26,6 +33,6 @@
           <button type="submit" class="btn btn-warning btn-lg" ng-click="modificarUser(newUser)" ng-disabled="!selected">Modificar</button>
           <button type="submit" class="btn btn-danger btn-lg" ng-click="borrarUser(newUser)" ng-disabled="!selected">Borrar</button>
         </form>
-      </div>
+      </div> -->
     </div>
   </div>
