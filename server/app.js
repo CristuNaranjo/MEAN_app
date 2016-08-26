@@ -25,13 +25,42 @@
  var db = mongoose.connection;
  db.on('error', console.error.bind(console, 'connection error:'));
 
+
  app.use(serveStatic(__dirname + '/public'));
+ app.use(serveStatic(__dirname + '/node_modules'));
  app.use(morgan('combined', {stream: accessLogStream}));
  app.use(bodyParser.urlencoded({extended:false}));
  app.use(bodyParser.json());
- app.use(methodOverride());
- 
- // app.set('port',process.env.PORT || 8080)
+ app.use(methodOverride('X-HTTP-Method'));
+ app.use(methodOverride('X-HTTP-Method-Override'));
+ app.use(methodOverride('X-Method-Override'));
+
+
+
+ // app.get('/', function(req, res) {
+ //  res.sendFile(__dirname + '/public/index.html');
+ // });
+ //
+ // app.get('/app/:name', function(req, res) {
+ //  console.log(req.params);
+ //  var options = {
+ //   root: __dirname + '/public/app/',
+ //   dotfiles: 'deny'
+ //  };
+ //  var fileName = req.params.name;
+ //  res.sendFile(fileName, options, function (err) {
+ //   if (err) {
+ //    console.log(err);
+ //    res.status(err.status).end();
+ //   }
+ //   else {
+ //    console.log('Sent:', fileName);
+ //   }
+ //  });
+ // });
+
+// app.set('port',process.env.PORT || 8080)
+
 
  // Cargamos los endpoints
  require('./routes.js')(app);
